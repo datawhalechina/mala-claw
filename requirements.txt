@@ -1,4 +1,4 @@
-Flask>=2.3.0,<3.0.0
+Flask[async]>=2.3.0,<3.0.0
 APScheduler>=3.10.0,<4.0.0
 playwright>=1.40.0,<2.0.0
 httpx>=0.25.0,<1.0.0
