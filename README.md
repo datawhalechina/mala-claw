@@ -431,6 +431,18 @@ app.run(host='0.0.0.0', port=5001, debug=True)  # 改为 5001 端口
 
 ---
 
+## 🧪 定时任务回归测试
+
+安装 `requirements.txt` 后，在项目根目录运行：
+
+```bash
+python -m unittest discover -s tests -p test_scheduled_agents.py -v
+```
+
+测试使用真实的 Flask 路由、后台调度器和本地 HTTP 服务，不需要模型密钥或第三方服务。任务列表中的“已启用”表示任务未暂停且已安排下次触发，不表示技能正在执行。
+
+---
+
 ## 📞 技术支持
 
 如有问题，请查看：

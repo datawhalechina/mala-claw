@@ -1053,7 +1053,8 @@ def get_jobs():
             "skill": job_info['skill'],
             "cron": job_info['cron'],
             "next_run": str(job.next_run_time) if job.next_run_time else "未知",
-            "status": "running" if job.running else "paused"
+            # 此状态表示是否启用调度，不表示技能此刻正在执行。
+            "status": "running" if job.next_run_time is not None else "paused"
         })
     return jsonify(job_list)
 
@@ -1075,11 +1076,11 @@ def create_job():
     if agent_id not in agents:
         return jsonify({"status": "error", "error": "Agent 不存在"}), 400
     
-    # 创建定时任务
-    async def run_task():
+    # BackgroundScheduler 在线程中调用同步函数，需要等待异步技能完成。
+    def run_task():
         logger.info(f"执行定时任务：{job_name}")
         agent = agents[agent_id]
-        result = await agent.execute_task(skill_id, **params)
+        result = asyncio.run(agent.execute_task(skill_id, **params))
         
         # 记录日志
         log_entry = {

@@ -831,7 +831,7 @@
                 
                 data.forEach(function(job) {
                     const statusClass = job.status === 'running' ? 'status-ok' : 'status-warning';
-                    const statusText = job.status === 'running' ? '运行中' : '已暂停';
+                    const statusText = job.status === 'running' ? '已启用' : '已暂停';
                     const cardClass = job.status === 'running' ? '' : 'paused';
                     
                     const taskHtml = `
